@@ -19,9 +19,16 @@ class DeisApi(object):
 
         self.deis_domain = config.get('deis', 'deisDomain')
         self.deis_url = config.get('deis', 'deisUrl')
-        self.deis_credentials = {"username": config.get('deis', 'deisUsername'), "password": config.get('deis', 'deisPassword')}
+        self.deis_credentials = {
+            'username': config.get('deis', 'deisUsername'),
+            'password': config.get('deis', 'deisPassword')
+        }
 
-        response = requests.post(url=self.deis_url + '/v2/auth/login/', json=self.deis_credentials).json()
+        response = requests.post(
+            url='{}/v2/auth/login/'.format(self.deis_url),
+            json=self.deis_credentials
+        ).json()
+
         self.token = response['token']
         self.allowed_status_codes = [200, 404]
 
@@ -37,9 +44,9 @@ class DeisApi(object):
         if method.lower() == 'get':
             response = requests.get(endpoint, headers=headers)
         elif method.lower() == 'post':
-            response = requests.post(url=self.deis_url + path, json=data)
+            response = requests.post(url='{0}{1}'.format(self.deis_url, path), json=data)
         elif method.lower() == 'put':
-            response = "put method"
+            response = requests.put()
         elif method.lower() == 'delete':
             response = requests.delete()
         else:
