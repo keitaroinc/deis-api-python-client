@@ -44,7 +44,8 @@ class DeisApi(object):
         if method.lower() == 'get':
             response = requests.get(endpoint, headers=headers)
         elif method.lower() == 'post':
-            response = requests.post(url='{0}{1}'.format(self.deis_url, path), json=data)
+            data = {'id': '{}'.format(kwargs.pop('data', {})) }
+            response = requests.post(endpoint, headers=headers, json=data)
         elif method.lower() == 'put':
             response = requests.put()
         elif method.lower() == 'delete':
@@ -68,3 +69,8 @@ class DeisApi(object):
         if path is None:
             path = '/v2/apps/{domain}/domains/'.format(domain=domain)
         return self.call(method='GET', path=path)
+
+    def create_app(self, data, path=None):
+        if path is None:
+            path = '/v2/apps/'
+        return self.call(method='POST', path=path, data=data)
