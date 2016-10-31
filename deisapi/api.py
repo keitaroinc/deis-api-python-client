@@ -15,7 +15,7 @@ class DeisApi(object):
     def __init__(self):
 
         config = ConfigParser.RawConfigParser()
-        config.read('config.cfg')
+        config.read(os.path.join(os.path.expanduser('~'), '.keitaro', 'config.cfg')
 
         self.deis_domain = config.get('deis', 'deisDomain')
         self.deis_url = config.get('deis', 'deisUrl')
