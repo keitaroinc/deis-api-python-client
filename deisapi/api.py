@@ -1,6 +1,5 @@
 import os
 import requests
-import json
 import logging
 import ConfigParser
 
@@ -10,12 +9,15 @@ log.addHandler(logging.StreamHandler())
 log_filename = os.path.join(os.getcwd(), 'error.log')
 log.addHandler(logging.FileHandler(log_filename))
 
+
 class DeisApi(object):
 
     def __init__(self):
 
         config = ConfigParser.RawConfigParser()
-        config.read(os.path.join(os.path.expanduser('~'), '.keitaro', 'config.cfg')
+        config.read(os.path.join(os.path.expanduser('~'),
+                                 '.keitaro',
+                                 'config.cfg'))
 
         self.deis_domain = config.get('deis', 'deisDomain')
         self.deis_url = config.get('deis', 'deisUrl')
@@ -44,7 +46,7 @@ class DeisApi(object):
         if method.lower() == 'get':
             response = requests.get(endpoint, headers=headers)
         elif method.lower() == 'post':
-            data = {'id': '{}'.format(kwargs.pop('data', {})) }
+            data = {'id': '{}'.format(kwargs.pop('data', {}))}
             response = requests.post(endpoint, headers=headers, json=data)
         elif method.lower() == 'put':
             response = requests.put()
@@ -54,9 +56,11 @@ class DeisApi(object):
             raise ValueError, 'Missing implementation for %s' % method
 
         if response.status_code not in self.allowed_status_codes:
-            log.error('method:{0}\nurl: {1}\nstatus_code: {2}\ncontent: {3}\nrbody:{4}\nrheaders:{5}\nrurl:{6}'\
-                      .format(method, response.url, response.status_code, response.content,
-                              response.request.body, response.request.headers, response.request.url))
+            log.error('method:{0}\nurl: {1}\nstatus_code: {2}\ncontent:'
+                      '{3}\nrbody:{4}\nrheaders:{5}\nrurl:{6}'
+                      .format(method, response.url, response.status_code,
+                              response.content, response.request.body,
+                              response.request.headers, response.request.url))
 
         return response.content
 
