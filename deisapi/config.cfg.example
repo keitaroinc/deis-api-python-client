@@ -1,5 +1,5 @@
 [deis]
-deisDomain = 'ckan.io'
-deisUrl = 'https://deis.ckan.io'
-deisUsername = 'username'
-deisPassword = 'password'
+deisDomain = ckan.io
+deisUrl = https://deis.ckan.io
+deisUsername = username
+deisPassword = password
