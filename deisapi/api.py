@@ -6,7 +6,7 @@ import ConfigParser
 log = logging.getLogger(__name__)
 log.addHandler(logging.StreamHandler())
 
-log_filename = os.path.join(os.getcwd(), 'error.log')
+log_filename = None
 log.addHandler(logging.FileHandler(log_filename))
 
 
