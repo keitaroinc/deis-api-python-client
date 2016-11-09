@@ -6,9 +6,6 @@ import ConfigParser
 log = logging.getLogger(__name__)
 log.addHandler(logging.StreamHandler())
 
-log_filename = None
-log.addHandler(logging.FileHandler(log_filename))
-
 
 class DeisApi(object):
 
